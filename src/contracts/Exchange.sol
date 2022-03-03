@@ -120,15 +120,12 @@ contract Exchange {
 	}
 
 	function cancelOrder(uint256 _id) public {
-		//Must be "my" order
-		_Order storage _order = orders[_id];
-		//Must be a valid order
-		require(address(_order.user) == msg.sender);
-		//Order must exists
-		require(_order.id == _id);
-		orderCancelled[_id] = true;
-		emit Cancel(_order.id, msg.sender, _order.tokenGet, _order.amountGet, _order.tokenGive, _order.amountGive, now);
-	}
+        _Order storage _order = orders[_id];
+        require(address(_order.user) == msg.sender);
+        require(_order.id == _id); // The order must exist
+        orderCancelled[_id] = true;
+        emit Cancel(_order.id, msg.sender, _order.tokenGet, _order.amountGet, _order.tokenGive, _order.amountGive, now);
+    }
 
 	function fillOrder(uint256 _id) public {
 	    require(_id > 0 && _id <= orderCount);
