@@ -40,7 +40,7 @@ class Trades extends Component {
 	                  <th>AMIG/ETH</th>
 	                </tr>
 	              </thead>
-	              { this.props.filledOrdersLoaded ? showFilledOrders(this.props.filledOrders) : <Spinner type="table" />}
+	              { this.props.filledOrdersLoaded ? showFilledOrders(this.props.filledOrders) : <Spinner type='table' />}
 	            </table>
             	</div>
             </div>
