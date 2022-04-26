@@ -19,6 +19,7 @@ import {
 } from './actions'
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
+import { ETHER_ADDRESS } from '../helpers'
 
 
 export const loadWeb3 = async (dispatch) => {
