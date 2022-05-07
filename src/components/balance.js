@@ -5,7 +5,9 @@ import Spinner from './spinner'
 import { 
 	loadBalances,
 	depositEther,
-	withdrawEther
+	depositToken,
+	withdrawEther,
+	withdrawToken
 } from '../store/interactions'
 
 import {
@@ -19,26 +21,32 @@ import {
 	exchangeTokenBalanceSelector,
 	balancesLoadingSelector,
 	etherDepositAmountSelector,
-	etherWithdrawAmountSelector
+	etherWithdrawAmountSelector,
+	tokenDepositAmountSelector,
+	tokenWithdrawAmountSelector
 } from '../store/selectors'
 import { 
 	etherDepositAmountChanged,
-	etherWithdrawAmountChanged
+	etherWithdrawAmountChanged,
+	tokenDepositAmountChanged,
+	tokenWithdrawAmountChanged
 } from '../store/actions'
 
 const showForm = (props) => {
 	const {
-		etherBalance,
-		exchangeEtherBalance,
-		tokenBalance,
-		exchangeTokenBalance,
-		dispatch,
-		etherDepositAmount,
-		exchange,
-		token,
-		account,
-		web3,
-		etherWithdrawAmount
+		web3,//
+		token,//
+		account,//
+		exchange,//
+		dispatch,//
+		etherBalance,//
+		tokenBalance,//
+		exchangeEtherBalance,//
+		exchangeTokenBalance,//
+		etherDepositAmount,//
+		etherWithdrawAmount,//
+		tokenDepositAmount,
+		tokenWithdrawAmount
 	} = props 
 
 	return(
@@ -89,6 +97,23 @@ const showForm = (props) => {
           </tbody>
         </table>
 
+        <form className="row" onSubmit={(event) => {
+          event.preventDefault()
+          depositToken(dispatch, exchange, web3, token, tokenDepositAmount, account)
+        }}>
+          <div className="col-12 col-sm pr-sm-2">
+            <input
+            type="text"
+            placeholder="AMIG Amount"
+            onChange={(e) => dispatch( tokenDepositAmountChanged(e.target.value) )}
+            className="form-control form-control-sm bg-dark text-white"
+            required />
+          </div>
+          <div className="col-12 col-sm-auto pl-sm-0">
+            <button type="submit" className="btn btn-primary btn-block btn-sm">Deposit</button>
+          </div>
+        </form>
+
         
 			</Tab>
 
@@ -137,7 +162,22 @@ const showForm = (props) => {
           </tbody>
         </table>
 
-        
+        <form className="row" onSubmit={(event) => {
+          event.preventDefault()
+          withdrawToken(dispatch, exchange, web3, token, tokenWithdrawAmount, account)
+        }}>
+          <div className="col-12 col-sm pr-sm-2">
+            <input
+            type="text"
+            placeholder="AMIG Amount"
+            onChange={(e) => dispatch( tokenWithdrawAmountChanged(e.target.value) )}
+            className="form-control form-control-sm bg-dark text-white"
+            required />
+          </div>
+          <div className="col-12 col-sm-auto pl-sm-0">
+            <button type="submit" className="btn btn-primary btn-block btn-sm">Withdraw</button>
+          </div>
+        </form>
 
 			</Tab>
 
@@ -195,7 +235,9 @@ function mapStateToProps(state){
     balancesLoading,
     showForm: !balancesLoading,
     etherDepositAmount: etherDepositAmountSelector(state),
-    etherWithdrawAmount: etherWithdrawAmountSelector(state)
+    etherWithdrawAmount: etherWithdrawAmountSelector(state),
+    tokenDepositAmount: tokenDepositAmountSelector(state),
+    tokenWithdrawAmount: tokenWithdrawAmountSelector(state)
 	}
 }
 

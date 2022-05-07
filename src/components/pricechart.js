@@ -24,7 +24,9 @@ const showPriceChart = (priceChart) => {
 			<div className="price">
 				<h4> AMIG/ETH &nbsp; {priceSymbol(priceChart.lastPriceChange)} &nbsp; {priceChart.lastPrice} </h4>
 			</div>
-			<Chart options ={chartOptions} series={priceChart.series} type='candlestick' width='100%' heigth='100%' />
+			<div>
+				<Chart options ={chartOptions} series={priceChart.series} type='candlestick' width='100%' heigth='100%' />
+			</div>
 		</div>
 	)
 }
